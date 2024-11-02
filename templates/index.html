@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Speech App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div id = 'intro'>
+            <h1>Welcome to Special Optic Understanding Reality (SOUR)!</h1>
+            <p>My name is Sour! I am excited to embark on this journey!</p>
+        </div>
+
+        <button id="startButton">Start Speaking!</button>
+
+        <div id="wave" class = 'hidden'>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+
+        <button id="stopButton" class="hidden">Stop Listening</button>
+
+        <div id="transcription"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

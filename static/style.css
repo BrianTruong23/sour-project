@@ -1,0 +1,95 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #EDE4E8; /* Background color */
+}
+
+.container {
+    text-align: center;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Hover effect for button */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Keyframes for the button wave animation */
+@keyframes buttonWave {
+    0%, 100% {
+        transform: translateY(0); /* Start and end position */
+    }
+    20% {
+        transform: translateY(-15px); /* Initial upward motion */
+    }
+    40% {
+        transform: translateY(-10px); /* Slight drop */
+    }
+    60% {
+        transform: translateY(-5px); /* Lower peak */
+    }
+    80% {
+        transform: translateY(0); /* Return to original position */
+    }
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #333;
+    border-radius: 50%;
+    display: inline-block; /* Ensure dots are inline */
+    animation: wave 1.3s linear infinite; /* Dot wave animation */
+}
+
+div#wave {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+}
+
+@keyframes wave {
+    0%, 60%, 100% {
+        transform: translateY(0); /* Start and end position */
+    }
+    30% {
+        transform: translateY(-15px); /* Higher peak */
+    }
+}
+
+/* Animation delays for the dots to create wave effect */
+.dot:nth-child(2) {
+    animation-delay: -0.8s;
+}
+.dot:nth-child(3) {
+    animation-delay: -0.4s;
+}
