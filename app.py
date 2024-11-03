@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
 import whisper
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -18,12 +18,16 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 whisper_model = whisper.load_model('base')
 
 local_model_dir = './moondreamer_model'
-model_moon_dreamer = AutoModelForCausalLM.from_pretrained(local_model_dir)
-tokenizer = AutoTokenizer.from_pretrained(local_model_dir)
+model_moon_dreamer = AutoModelForCausalLM.from_pretrained(local_model_dir, trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(local_model_dir, trust_remote_code = True)
 
 # Set device to GPU if available, otherwise fallback to CPU
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model_moon_dreamer = model_moon_dreamer.to(device)  # Move model to the appropriate device
+
+@app.route('/uploads/<path:filename>')
+def download_file(filename):
+    return send_from_directory('uploads', filename)
 
 @app.route('/', methods=["GET"])
 def home():
@@ -47,9 +51,9 @@ def upload_audio():
         return jsonify({"error": "No audio or image file uploaded"}), 400
 
     # Save the audio file
-    audio_file = request.files["audio"]
+    # audio_file = request.files["audio"]
     audio_path = os.path.join(UPLOAD_FOLDER, "recorded_audio.wav")
-    audio_file.save(audio_path)
+    # audio_file.save(audio_path)
 
     # Convert audio to text
     try:
@@ -75,6 +79,8 @@ def upload_audio():
         })
     except Exception as e:
         return jsonify({"error": "Failed to generate response", "details": str(e)}), 500
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
